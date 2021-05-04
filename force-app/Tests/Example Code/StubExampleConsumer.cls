@@ -46,7 +46,7 @@ public with sharing class StubExampleConsumer {
         return this.stub.addFourNumbers(one, two, three, four);
     }
 
-    public List<Account> getAccounts(Account acct) {
-        return this.stub.getAccounts(acct);
+    public List<Account> getAccounts(List<Account> accounts) {
+        return this.stub.getAccounts(accounts);
     }
 }

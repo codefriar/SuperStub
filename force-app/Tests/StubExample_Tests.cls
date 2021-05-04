@@ -270,7 +270,7 @@ private class StubExample_Tests {
                 StubExample.class
             )
             .mockingMethodCall('getAccounts') // returns methodSig.builder
-            .withParameterTypes(Account.class)
+            .withParameterTypes(List<Account>.class)
             .withParameterValues(accounts)
             .returning(ids)
             .defineStub(true);
@@ -278,7 +278,7 @@ private class StubExample_Tests {
         StubExampleConsumer consumer = new StubExampleConsumer(exampleStub);
         Test.startTest();
         List<Account> checkAccounts = (List<Account>) consumer.getAccounts(
-            new Account()
+            accounts
         );
         Test.stopTest();
 

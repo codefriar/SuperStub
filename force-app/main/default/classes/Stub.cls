@@ -102,9 +102,16 @@ public with sharing class Stub implements System.StubProvider {
         // match.
         throw new Stub.StubException(
             methodName +
-            ' was called on a Stubbed ' +
+            ' was called on a Stubbed version of ' +
             this.objectType.toString() +
-            ' object but no mocked method matched it\'s signature and parameter values'
+            ' but no mocked method matched it\'s signature and parameter' +
+            ' values.' +
+            ' Known mocks include:  ' +
+            this.mockedMethods +
+            ' However the parameter types of this call are: ' +
+            paramTypes +
+            ' and the parameter values of this call are: ' +
+            args
         );
         //return null;
     }

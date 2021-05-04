@@ -40,7 +40,7 @@ public with sharing class StubExample {
         return one + two + three + four;
     }
 
-    public List<Account> getAccounts(Account acct) {
+    public List<Account> getAccounts(List<Account> accounts) {
         return new List<Account>();
     }
 }
