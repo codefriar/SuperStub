@@ -271,13 +271,15 @@ private class StubExample_Tests {
             )
             .mockingMethodCall('getAccounts') // returns methodSig.builder
             .withParameterTypes(Account.class)
-            .withParameterValues(new Account())
-            .returning(accounts)
+            .withParameterValues(accounts)
+            .returning(ids)
             .defineStub(true);
 
         StubExampleConsumer consumer = new StubExampleConsumer(exampleStub);
         Test.startTest();
-        List<Account> checkAccounts = consumer.getAccounts(new Account());
+        List<Account> checkAccounts = (List<Account>) consumer.getAccounts(
+            new Account()
+        );
         Test.stopTest();
 
         System.assertEquals(checkAccounts.size(), ids.size());
