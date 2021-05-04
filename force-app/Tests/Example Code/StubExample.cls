@@ -18,4 +18,8 @@ public with sharing class StubExample {
     public void setGreeting(Integer greeting) {
         this.greeting = String.valueOf(greeting);
     }
+
+    public Integer add(Integer first, Integer second) {
+        return first + second;
+    }
 }

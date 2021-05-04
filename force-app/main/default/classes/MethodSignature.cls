@@ -73,8 +73,8 @@ public with sharing class MethodSignature {
          * was called without parameters.
          * @return      `MockedMethod.Builder`
          */
-        public MockedMethod.Builder wasCalledWith() {
-            return wasCalledWith(new List<Object>());
+        public MockedMethod.Builder calledWith() {
+            return calledWith(new List<Object>());
         }
 
         /**
@@ -83,7 +83,7 @@ public with sharing class MethodSignature {
          * @param parameters
          * @return           `MockedMethod.Builder`
          */
-        public MockedMethod.Builder wasCalledWith(List<Object> parameters) {
+        public MockedMethod.Builder calledWith(List<Object> parameters) {
             MockedMethod.Builder mockedMethodBuilder = new MockedMethod.Builder(
                 this,
                 parameters
@@ -99,7 +99,7 @@ public with sharing class MethodSignature {
          * @return      `MockedMethod.Builder`
          */
         public MockedMethod.Builder calledWith(Object arg) {
-            return wasCalledWith(new List<Object>{ arg });
+            return calledWith(new List<Object>{ arg });
         }
 
         /**
@@ -109,7 +109,7 @@ public with sharing class MethodSignature {
          * @return      `MockedMethod.Builder`
          */
         public MockedMethod.Builder calledWith(Object arg, Object arg2) {
-            return wasCalledWith(new List<Object>{ arg, arg2 });
+            return calledWith(new List<Object>{ arg, arg2 });
         }
 
         /**
@@ -124,7 +124,7 @@ public with sharing class MethodSignature {
             Object arg2,
             Object arg3
         ) {
-            return wasCalledWith(new List<Object>{ arg, arg2, arg3 });
+            return calledWith(new List<Object>{ arg, arg2, arg3 });
         }
 
         /**
@@ -142,7 +142,7 @@ public with sharing class MethodSignature {
             Object arg3,
             Object arg4
         ) {
-            return wasCalledWith(new List<Object>{ arg, arg2, arg3, arg4 });
+            return calledWith(new List<Object>{ arg, arg2, arg3, arg4 });
         }
 
         /**

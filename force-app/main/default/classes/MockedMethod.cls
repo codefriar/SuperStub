@@ -20,7 +20,8 @@ public with sharing class MockedMethod {
     private List<Id> sObjectIds;
     private Exception customException;
     private Integer countOfMethodInvocations = 0;
-    private String exceptionMessage = 'Exception thrown by SuperStub.';
+    @testVisible
+    private static String exceptionMessage = 'Exception thrown by SuperStub.';
 
     /**
      * @description          Constructor requiring a method signature. This is
@@ -53,6 +54,7 @@ public with sharing class MockedMethod {
         // Throw a pre-specified exception, if one is set.
         if (throwException) {
             if (this.customException != null) {
+                system.debug('custom exception is not null');
                 throw this.customException;
             }
             // or throw a new custom exeption if it's just supposed to throw an
@@ -284,7 +286,11 @@ public with sharing class MockedMethod {
                 methodCall.returning(returnSObjectIds);
             }
             if (throwException) {
-                methodCall.throwingException();
+                if (this.customException != null) {
+                    methodCall.throwingException(customException);
+                } else {
+                    methodCall.throwingException();
+                }
             } else {
                 methodCall.returning(returnValue);
             }

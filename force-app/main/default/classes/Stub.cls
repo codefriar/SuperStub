@@ -275,10 +275,16 @@ public with sharing class Stub implements System.StubProvider {
         }
 
         /**
-         * @description Generates a Stub object from this builder object.
-         * @return      `Stub`
+         * @description    Generates a Stub object from this builder object.
+         * @param If true, calls the stub objects' createStub method
+         * automatically
+         * @return                       `Stub`
          */
-        public Stub createStub() {
+        public Object defineStub(Boolean generateInjectableStub) {
+            return this.defineStub().createStub();
+        }
+
+        public Stub defineStub() {
             List<MockedMethod> methodCalls = new List<MockedMethod>();
             for (MethodSignature.Builder sb : signatureBuilders) {
                 methodCalls.addAll(sb.buildMockedMethod());
