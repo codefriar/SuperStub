@@ -1,4 +1,3 @@
-@isTest
 /**
  * @description Represents a method call that is mocked as part of a Stub
  * object. This class is marked @isTest, as the object and it's methods are
@@ -13,6 +12,7 @@ public with sharing class MockedMethod {
      * @description Every MockedMethod has a methodSignature defining it's
      * 'signature' or combination of name, parameter names and parameter types.
      */
+    @testVisible
     private MethodSignature methodSignature;
     private List<Object> methodParamsAtExecutionTime;
     private Object returnValue;
@@ -54,7 +54,6 @@ public with sharing class MockedMethod {
         // Throw a pre-specified exception, if one is set.
         if (throwException) {
             if (this.customException != null) {
-                system.debug('custom exception is not null');
                 throw this.customException;
             }
             // or throw a new custom exeption if it's just supposed to throw an
@@ -72,9 +71,10 @@ public with sharing class MockedMethod {
     @SuppressWarnings('pmd.ApexUnitTestMethodShouldHaveIsTestAnnotation')
     public void assertMockedMethodWasCalled() {
         if (countOfMethodInvocations < 1) {
-            System.assert(
-                false,
-                'This bound method was not called as expected: ' +
+            throw new Stub.StubException(
+                'This bound method (' +
+                this.methodSignature.getMethodName() +
+                ') was not called as expected: ' +
                 this.toString()
             );
         }
@@ -89,7 +89,7 @@ public with sharing class MockedMethod {
      * in order for your stub to return the specified mock output.
      * @return      `MockedMethod`
      */
-    public MockedMethod withParameters(List<Object> args) {
+    public MockedMethod withParameterValues(List<Object> args) {
         this.methodParamsAtExecutionTime = args;
         return this;
     }
@@ -193,7 +193,7 @@ public with sharing class MockedMethod {
      */
     public class Builder {
         private MethodSignature.Builder methodSignatureBuilder;
-        private List<Object> args;
+        private List<Object> runtimeParameters;
         private List<Id> returnSObjectIds;
         private Exception customException;
         private Boolean throwException = false;
@@ -209,8 +209,51 @@ public with sharing class MockedMethod {
             MethodSignature.Builder methodSignatureBuilder,
             List<Object> args
         ) {
-            this.args = args;
+            this.runtimeParameters = args;
             this.methodSignatureBuilder = methodSignatureBuilder;
+        }
+
+        /**
+         * @description
+         * @param args
+         * @return      `MockedMethod`
+         */
+        public MockedMethod.Builder withParameterValues(List<Object> args) {
+            this.runtimeParameters = args;
+            return this;
+        }
+
+        public MockedMethod.Builder withParameterValues(Object arg1) {
+            return this.withParameterValues(new List<Object>{ arg1 });
+        }
+
+        public MockedMethod.Builder withParameterValues(
+            Object arg1,
+            Object arg2
+        ) {
+            return this.withParameterValues(new List<Object>{ arg1, arg2 });
+        }
+
+        public MockedMethod.Builder withParameterValues(
+            Object arg1,
+            Object arg2,
+            Object arg3
+        ) {
+            return this.withParameterValues(
+                new List<Object>{ arg1, arg2, arg3 }
+            );
+        }
+
+        @SuppressWarnings('PMD.ExcessiveParameterList')
+        public MockedMethod.Builder withParameterValues(
+            Object arg1,
+            Object arg2,
+            Object arg3,
+            Object arg4
+        ) {
+            return this.withParameterValues(
+                new List<Object>{ arg1, arg2, arg3, arg4 }
+            );
         }
 
         /**
@@ -219,9 +262,9 @@ public with sharing class MockedMethod {
          * @param ids   The list of Ids to assign.
          * @return      `MockedMethod.Builder`
          */
-        public MockedMethod.Builder returning(List<Id> ids) {
+        public Stub.Builder returning(List<Id> ids) {
             this.returnSObjectIds = ids;
-            return this;
+            return methodSignatureBuilder.finalizeSignature();
         }
 
         /**
@@ -281,7 +324,7 @@ public with sharing class MockedMethod {
          */
         public MockedMethod createMockedMethod(MethodSignature signature) {
             MockedMethod methodCall = new MockedMethod(signature)
-                .withParameters(args);
+                .withParameterValues(runtimeParameters);
             if (returnSObjectIds != null) {
                 methodCall.returning(returnSObjectIds);
             }

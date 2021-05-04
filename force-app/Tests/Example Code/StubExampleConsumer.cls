@@ -24,4 +24,29 @@ public with sharing class StubExampleConsumer {
     public void setGreeting(Boolean someBoolean) {
         this.stub.setGreeting(String.valueOf(someBoolean));
     }
+
+    public Integer add(Integer first, Integer second) {
+        return this.stub.add(first, second);
+    }
+
+    public String concatThreeStrings(
+        String first,
+        String second,
+        String third
+    ) {
+        return this.stub.concatThreeStrings(first, second, third);
+    }
+
+    public Integer addFourNumbers(
+        Integer one,
+        Integer two,
+        Integer three,
+        Integer four
+    ) {
+        return this.stub.addFourNumbers(one, two, three, four);
+    }
+
+    public List<Account> getAccounts(Account acct) {
+        return this.stub.getAccounts(acct);
+    }
 }

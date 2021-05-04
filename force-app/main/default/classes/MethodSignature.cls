@@ -5,8 +5,10 @@
  * established MockedMethods.
  */
 public with sharing class MethodSignature {
+    @testVisible
     private String methodName;
-    private List<Type> paramTypes;
+    @testVisible
+    private List<Type> methodParameterTypes;
 
     /**
      * @description      Constructor requiring a method name and list of
@@ -16,7 +18,7 @@ public with sharing class MethodSignature {
      */
     public MethodSignature(String methodName, List<Type> paramTypes) {
         this.methodName = methodName;
-        this.paramTypes = paramTypes;
+        this.methodParameterTypes = paramTypes;
     }
 
     /**
@@ -29,10 +31,33 @@ public with sharing class MethodSignature {
     public Boolean verifySignatureMatch(Object otherInstance) {
         if (otherInstance instanceof MethodSignature) {
             MethodSignature otherSignature = (MethodSignature) otherInstance;
-            return ((methodName == otherSignature.methodName) &&
-            paramTypes.equals(otherSignature.paramTypes));
+            return verifyMethodNamesMatch(
+                    this.methodName,
+                    otherSignature.methodName
+                ) &&
+                methodParameterTypes.equals(
+                    otherSignature.methodParameterTypes
+                );
         }
         return false;
+    }
+
+    /**
+     * @description                Returns true if the current MethodSignature's
+     * methodName is a case insensitive match to the comparison's methodName
+     * @param originalMethodName
+     * @param comparitorMethodName
+     * @return                     `Boolean`
+     */
+    private Boolean verifyMethodNamesMatch(
+        String originalMethodName,
+        String comparitorMethodName
+    ) {
+        return originalMethodName.equalsIgnoreCase(comparitorMethodName);
+    }
+
+    public String getMethodName() {
+        return this.methodName;
     }
 
     /**
@@ -41,9 +66,11 @@ public with sharing class MethodSignature {
      * MethodSignature object in a Fluent api style.
      */
     public class Builder {
-        private Stub.Builder builder;
+        private Stub.Builder stubBuilder;
+        @testVisible
         private String methodName;
-        private List<Type> paramTypes;
+        @testVisible
+        public List<Type> parameterTypes;
 
         // A list of MockedMethod.Builders that have this signature.
         // One MethodSignature may have multiple MockedMethods because the
@@ -63,9 +90,9 @@ public with sharing class MethodSignature {
             String methodName,
             List<System.Type> paramTypes
         ) {
-            this.builder = builder;
+            this.stubBuilder = builder;
             this.methodName = methodName;
-            this.paramTypes = paramTypes;
+            this.parameterTypes = paramTypes;
         }
 
         /**
@@ -73,8 +100,8 @@ public with sharing class MethodSignature {
          * was called without parameters.
          * @return      `MockedMethod.Builder`
          */
-        public MockedMethod.Builder calledWith() {
-            return calledWith(new List<Object>());
+        public MockedMethod.Builder withParameterTypes() {
+            return withParameterTypes(new List<System.Type>());
         }
 
         /**
@@ -83,11 +110,15 @@ public with sharing class MethodSignature {
          * @param parameters
          * @return           `MockedMethod.Builder`
          */
-        public MockedMethod.Builder calledWith(List<Object> parameters) {
+        public MockedMethod.Builder withParameterTypes(
+            List<System.Type> parameters
+        ) {
+            this.parameterTypes.addAll(parameters);
             MockedMethod.Builder mockedMethodBuilder = new MockedMethod.Builder(
                 this,
                 parameters
             );
+
             methodBuilders.add(mockedMethodBuilder);
             return mockedMethodBuilder;
         }
@@ -98,8 +129,8 @@ public with sharing class MethodSignature {
          * @param arg
          * @return      `MockedMethod.Builder`
          */
-        public MockedMethod.Builder calledWith(Object arg) {
-            return calledWith(new List<Object>{ arg });
+        public MockedMethod.Builder withParameterTypes(System.Type arg) {
+            return withParameterTypes(new List<System.Type>{ arg });
         }
 
         /**
@@ -108,8 +139,11 @@ public with sharing class MethodSignature {
          * @param arg2
          * @return      `MockedMethod.Builder`
          */
-        public MockedMethod.Builder calledWith(Object arg, Object arg2) {
-            return calledWith(new List<Object>{ arg, arg2 });
+        public MockedMethod.Builder withParameterTypes(
+            System.Type arg,
+            System.Type arg2
+        ) {
+            return withParameterTypes(new List<System.Type>{ arg, arg2 });
         }
 
         /**
@@ -119,12 +153,12 @@ public with sharing class MethodSignature {
          * @param arg3
          * @return      `MockedMethod.Builder`
          */
-        public MockedMethod.Builder calledWith(
-            Object arg,
-            Object arg2,
-            Object arg3
+        public MockedMethod.Builder withParameterTypes(
+            System.Type arg,
+            System.Type arg2,
+            System.Type arg3
         ) {
-            return calledWith(new List<Object>{ arg, arg2, arg3 });
+            return withParameterTypes(new List<System.Type>{ arg, arg2, arg3 });
         }
 
         /**
@@ -136,13 +170,15 @@ public with sharing class MethodSignature {
          * @return      `MockedMethod.Builder`
          */
         @SuppressWarnings('PMD.ExcessiveParameterList')
-        public MockedMethod.Builder calledWith(
-            Object arg,
-            Object arg2,
-            Object arg3,
-            Object arg4
+        public MockedMethod.Builder withParameterTypes(
+            System.Type arg,
+            System.Type arg2,
+            System.Type arg3,
+            System.Type arg4
         ) {
-            return calledWith(new List<Object>{ arg, arg2, arg3, arg4 });
+            return withParameterTypes(
+                new List<System.Type>{ arg, arg2, arg3, arg4 }
+            );
         }
 
         /**
@@ -150,7 +186,7 @@ public with sharing class MethodSignature {
          * @return      `Stub.Builder`
          */
         public Stub.Builder finalizeSignature() {
-            return builder;
+            return stubBuilder;
         }
 
         /**
@@ -160,8 +196,9 @@ public with sharing class MethodSignature {
         public List<MockedMethod> buildMockedMethod() {
             MethodSignature signature = new MethodSignature(
                 methodName,
-                paramTypes
+                parameterTypes
             );
+
             List<MockedMethod> methodCalls = new List<MockedMethod>();
             for (MockedMethod.Builder mb : methodBuilders) {
                 methodCalls.add(mb.createMockedMethod(signature));

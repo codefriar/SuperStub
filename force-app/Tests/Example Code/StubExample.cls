@@ -22,4 +22,25 @@ public with sharing class StubExample {
     public Integer add(Integer first, Integer second) {
         return first + second;
     }
+
+    public String concatThreeStrings(
+        String first,
+        String second,
+        String third
+    ) {
+        return first + second + third;
+    }
+
+    public Integer addFourNumbers(
+        Integer one,
+        Integer two,
+        Integer three,
+        Integer four
+    ) {
+        return one + two + three + four;
+    }
+
+    public List<Account> getAccounts(Account acct) {
+        return new List<Account>();
+    }
 }

@@ -4,10 +4,10 @@ private class StubExample_Tests {
     static void testStubBuilderWithTwoMethodsMocked() {
         Stub exStub = new Stub.Builder(StubExample.class)
             .mockingMethodCall('getIsTrue')
-            .calledWith()
+            .withParameterTypes()
             .returning(true)
             .mockingMethodCall('getGreeting')
-            .calledWith()
+            .withParameterTypes()
             .returning('foo bar baz')
             .defineStub();
 
@@ -39,10 +39,10 @@ private class StubExample_Tests {
                 StubExample.class
             )
             .mockingMethodCall('getIsTrue')
-            .calledWith()
+            .withParameterTypes()
             .returning(true)
             .mockingMethodCall('getGreeting')
-            .calledWith()
+            .withParameterTypes()
             .returning('foo bar baz')
             .defineStub(true);
 
@@ -71,10 +71,10 @@ private class StubExample_Tests {
                 StubExample.class
             )
             .mockingMethodCall('getIsTrue')
-            .calledWith()
+            .withParameterTypes()
             .throwingException(customException)
             .mockingMethodCall('getGreeting')
-            .calledWith()
+            .withParameterTypes()
             .throwingException()
             .defineStub(true);
 
@@ -111,19 +111,21 @@ private class StubExample_Tests {
 
     @isTest
     static void testDispatchToSameMethodReturningDifferentValuesByInput() {
-        StubExample exampleStub = (StubExample) new Stub.Builder(
-                StubExample.class
-            )
-            .mockingMethodCall('add')
-            .calledWith(2, 2)
+        Stub exampleStub = new Stub.Builder(StubExample.class)
+            .mockingMethodCall('add') // returns methodSig.builder
+            .withParameterTypes(Integer.class, Integer.class)
+            .withParameterValues(2, 2)
             .returning(5)
-            .mockingMethodCall('setGreeting')
-            .calledWith(3, 3)
+            .mockingMethodCall('add')
+            .withParameterTypes(Integer.class, Integer.class)
+            .withParameterValues(3, 3)
             .returning(7)
-            .defineStub(true);
+            .defineStub();
 
         Test.startTest();
-        StubExampleConsumer consumer = new StubExampleConsumer(exampleStub);
+        StubExampleConsumer consumer = new StubExampleConsumer(
+            (StubExample) exampleStub.createStub()
+        );
         Integer checkSum = consumer.add(2, 2);
         System.assertEquals(
             5,
@@ -136,8 +138,148 @@ private class StubExample_Tests {
             checkSum,
             'Expected to find the method returned 7 instead 6'
         );
-        checkSum = consumer.add(5, 5);
-        system.assertEquals(10, checkSum, 'Expected valid results');
+        exampleStub.assertAllMockedMethodsWereCalled();
         Test.stopTest();
+    }
+
+    @isTest
+    static void testThrowsExceptionOnUnmatchedMethod() {
+        StubExample exampleStub = (StubExample) new Stub.Builder(
+                StubExample.class
+            )
+            .mockingMethodCall('add') // returns methodSig.builder
+            .withParameterTypes(Integer.class, Integer.class)
+            .withParameterValues(2, 2)
+            .returning(5)
+            .defineStub(true);
+
+        StubExampleConsumer consumer = new StubExampleConsumer(exampleStub);
+        Boolean didCatchStubException = false;
+
+        Test.startTest();
+        try {
+            consumer.add(0, 0);
+        } catch (Stub.StubException stubException) {
+            if (
+                stubException.getMessage()
+                    .containsIgnoreCase(
+                        'add was called on a Stubbed StubExample object but no mocked method matched it'
+                    )
+            ) {
+                didCatchStubException = true;
+            }
+        }
+        Test.stopTest();
+        System.assert(
+            didCatchStubException,
+            'Expected to recieve a Stub.StubException when no matching method was found'
+        );
+    }
+
+    @isTest
+    static void testMockingMethodCallOverloads() {
+        Stub exampleStub = new Stub.Builder(StubExample.class)
+            // Create a MockedMethod with a single String parameter
+            .mockingMethodCall('setGreeting', String.class)
+            .withParameterValues('Testin123')
+            .returning()
+            // Create a MockedMethod with two Integer paramters
+            .mockingMethodCall('add', Integer.class, Integer.class)
+            .withParameterValues(5, 5)
+            .returning(11)
+            // Create a MockedMethod with three String parameters
+            .mockingMethodCall(
+                'concatThreeStrings',
+                String.class,
+                String.class,
+                String.class
+            )
+            .withParameterValues('foo', 'bar', 'baz')
+            .returning('bobsYourUncle')
+            // Create a MockedMethod with 4 integer parameters
+            .mockingMethodCall(
+                'addFourNumbers',
+                Integer.class,
+                Integer.class,
+                Integer.class,
+                Integer.class
+            )
+            .withParameterValues(1, 2, 3, 4)
+            .returning(0)
+            .defineStub();
+
+        StubExampleConsumer consumer = new StubExampleConsumer(
+            (StubExample) exampleStub.createStub()
+        );
+        Test.startTest();
+        consumer.setGreeting('Testin123');
+        exampleStub.mockedMethods[0].assertMockedMethodWasCalled();
+        System.assertEquals(
+            11,
+            consumer.add(5, 5),
+            'Expected the constructed mock to return 11, even though the input parameters sum to 10'
+        );
+        System.assertEquals(
+            consumer.concatThreeStrings('foo', 'bar', 'baz'),
+            'bobsYourUncle',
+            'Expected the constructed mock to return the overrided'
+        );
+        System.assertEquals(
+            consumer.addFourNumbers(1, 2, 3, 4),
+            0,
+            'Expected the constructed mock to return the override'
+        );
+        Test.stopTest();
+    }
+
+    @isTest
+    static void testAssertMockeMethodThrowsWhenNotCalled() {
+        Stub exampleStub = new Stub.Builder(StubExample.class)
+            .mockingMethodCall('add') // returns methodSig.builder
+            .withParameterTypes(Integer.class, Integer.class)
+            .withParameterValues(2, 2)
+            .returning(5)
+            .defineStub();
+
+        Test.startTest();
+        Boolean didCatchStubException = false;
+        try {
+            exampleStub.mockedMethods[0].assertMockedMethodWasCalled();
+        } catch (Stub.StubException expt) {
+            if (
+                expt.getMessage().containsIgnoreCase('this bound method (add)')
+            ) {
+                didCatchStubException = true;
+            }
+        }
+        Test.stopTest();
+        system.assert(
+            didCatchStubException,
+            'expected to have caught an assertion exception'
+        );
+    }
+
+    @isTest
+    static void testReturnListOfIds() {
+        List<Id> ids = StubUtilities.generateSObjectIds('account', 5);
+        List<Account> accounts = new List<account>();
+        for (Id id : ids) {
+            accounts.add(new Account(id = id));
+        }
+        StubExample exampleStub = (StubExample) new Stub.Builder(
+                StubExample.class
+            )
+            .mockingMethodCall('getAccounts') // returns methodSig.builder
+            .withParameterTypes(Account.class)
+            .withParameterValues(new Account())
+            .returning(accounts)
+            .defineStub(true);
+
+        StubExampleConsumer consumer = new StubExampleConsumer(exampleStub);
+        Test.startTest();
+        List<Account> checkAccounts = consumer.getAccounts(new Account());
+        Test.stopTest();
+
+        System.assertEquals(checkAccounts.size(), ids.size());
     }
 }
