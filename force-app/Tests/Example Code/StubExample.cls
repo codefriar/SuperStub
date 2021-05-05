@@ -41,6 +41,6 @@ public with sharing class StubExample {
     }
 
     public List<Account> getAccounts(List<Account> accounts) {
-        return new List<Account>();
+        return accounts;
     }
 }

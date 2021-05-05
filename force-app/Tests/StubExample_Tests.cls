@@ -10,7 +10,7 @@ private class StubExample_Tests {
             .withParameterTypes()
             .returning('foo bar baz')
             .defineStub();
-
+ 
         // exStub is now a Stub object, but we need to call the test.createStub
         // method in order to have an injectable object
 

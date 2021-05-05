@@ -156,6 +156,8 @@ public with sharing class MockedMethod {
         MethodSignature methodSignature,
         List<Object> runtimeParameters
     ) {
+        system.debug('@@@@ Signature match? ' + this.methodSignature.verifySignatureMatch(methodSignature));
+        system.debug('#### runtime params match? ' + doRuntimeParametersMatch(runtimeParameters) );
         return this.methodSignature.verifySignatureMatch(methodSignature) &&
             doRuntimeParametersMatch(runtimeParameters);
     }
@@ -173,6 +175,8 @@ public with sharing class MockedMethod {
     private Boolean doRuntimeParametersMatch(List<Object> compareTo) {
         Boolean matchesSoFar =
             this.methodParamsAtExecutionTime.size() == compareTo.size();
+        system.debug('$$$$ param size match ' + matchesSoFar);
+        system.debug('%%%% ' + this.methodParamsAtExecutionTime + '\n' + compareTo );
         for (Integer i = 0; i < compareTo.size(); i++) {
             if (!matchesSoFar) {
                 break;

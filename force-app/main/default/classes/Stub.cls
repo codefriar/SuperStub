@@ -92,7 +92,8 @@ public with sharing class Stub implements System.StubProvider {
         // a match to the currently handled method call, it delegates the return
         // value to the MockedMethod.handleCall() method.
         for (MockedMethod mockedMethod : mockedMethods) {
-            if (MockedMethod.doMethodSignaturesMatch(methodSignature, args)) {
+            system.debug('!!!! ' + mockedMethod.doMethodSignaturesMatch(methodSignature, args));
+            if (mockedMethod.doMethodSignaturesMatch(methodSignature, args)) {
                 return MockedMethod.handleCall();
             }
         }
@@ -107,7 +108,7 @@ public with sharing class Stub implements System.StubProvider {
             ' but no mocked method matched it\'s signature and parameter' +
             ' values.' +
             ' Known mocks include:  ' +
-            this.mockedMethods +
+            this.mockedMethods[0] +
             ' However the parameter types of this call are: ' +
             paramTypes +
             ' and the parameter values of this call are: ' +
