@@ -28,18 +28,12 @@ public with sharing class MethodSignature {
      * @param otherInstance
      * @return              `Boolean`
      */
-    public Boolean verifySignatureMatch(Object otherInstance) {
-        if (otherInstance instanceof MethodSignature) {
-            MethodSignature otherSignature = (MethodSignature) otherInstance;
-            return verifyMethodNamesMatch(
-                    this.methodName,
-                    otherSignature.methodName
-                ) &&
-                methodParameterTypes.equals(
-                    otherSignature.methodParameterTypes
-                );
-        }
-        return false;
+    public Boolean verifySignatureMatch(MethodSignature otherSignature) {
+        return verifyMethodNamesMatch(
+                this.methodName,
+                otherSignature.methodName
+            ) &&
+            methodParameterTypes.equals(otherSignature.methodParameterTypes);
     }
 
     /**

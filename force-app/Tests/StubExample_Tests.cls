@@ -287,12 +287,58 @@ private class StubExample_Tests {
     }
 
     @isTest
-    static void testConvenienceParamTypeMethods(){
-        Stub exampleStub = new Stub.Builder(StubExample.class)
-            .mockingMethodCall('add') // returns methodSig.builder
-            .withParameterTypes(Integer.class, Integer.class)
-            .withParameterValues(2, 2)
-            .returning(5)
-            .defineStub();
+    static void testConvenienceParamTypeMethods() {
+        StubExample exampleStub = (StubExample) new Stub.Builder(
+                StubExample.class
+            )
+            .mockingMethodCall('concatThreeStrings')
+            .withParameterTypes(String.class, String.class, String.class)
+            .withParameterValues('foo', 'bar', 'baz')
+            .returning('bobsYourUncle')
+            // Create a MockedMethod with 4 integer parameters
+            .mockingMethodCall('addFourNumbers')
+            .withParameterTypes(
+                Integer.class,
+                Integer.class,
+                Integer.class,
+                Integer.class
+            )
+            .withParameterValues(1, 2, 3, 4)
+            .returning(0)
+            .defineStub(true);
+
+        StubExampleConsumer consumer = new StubExampleConsumer(exampleStub);
+        Test.startTest();
+        System.assertEquals(
+            consumer.concatThreeStrings('foo', 'bar', 'baz'),
+            'bobsYourUncle',
+            'Expected the constructed mock to return the overrided'
+        );
+        System.assertEquals(
+            consumer.addFourNumbers(1, 2, 3, 4),
+            0,
+            'Expected the constructed mock to return the override'
+        );
+        Test.stopTest();
+    }
+
+    @isTest
+    static void testVerifySignatureMatchPositiveReturnsFalse() {
+        MethodSignature signature = new MethodSignature(
+            'foo',
+            new List<Type>{}
+        );
+        MethodSignature comparitor = new MethodSignature(
+            'bar',
+            new List<Type>{ Integer.class }
+        );
+
+        Test.startTest();
+        System.assertEquals(
+            false,
+            signature.verifySignatureMatch(comparitor),
+            'Expected these two method signatures to not match because they have different names'
+        );
+        Test.stopTest();
     }
 }
