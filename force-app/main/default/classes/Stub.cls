@@ -92,8 +92,19 @@ public with sharing class Stub implements System.StubProvider {
         // a match to the currently handled method call, it delegates the return
         // value to the MockedMethod.handleCall() method.
         for (MockedMethod mockedMethod : mockedMethods) {
-            system.debug('!!!! ' + mockedMethod.doMethodSignaturesMatch(methodSignature, args));
-            if (mockedMethod.doMethodSignaturesMatch(methodSignature, args)) {
+            system.debug(
+                '!!!! ' +
+                mockedMethod.doMethodSignaturesAndParametersMatch(
+                    methodSignature,
+                    args
+                )
+            );
+            if (
+                mockedMethod.doMethodSignaturesAndParametersMatch(
+                    methodSignature,
+                    args
+                )
+            ) {
                 return MockedMethod.handleCall();
             }
         }

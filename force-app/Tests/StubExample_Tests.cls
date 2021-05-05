@@ -10,7 +10,7 @@ private class StubExample_Tests {
             .withParameterTypes()
             .returning('foo bar baz')
             .defineStub();
- 
+
         // exStub is now a Stub object, but we need to call the test.createStub
         // method in order to have an injectable object
 
@@ -163,7 +163,7 @@ private class StubExample_Tests {
             if (
                 stubException.getMessage()
                     .containsIgnoreCase(
-                        'add was called on a Stubbed StubExample object but no mocked method matched it'
+                        'add was called on a Stubbed version of StubExample but no mocked method matched'
                     )
             ) {
                 didCatchStubException = true;
@@ -272,16 +272,27 @@ private class StubExample_Tests {
             .mockingMethodCall('getAccounts') // returns methodSig.builder
             .withParameterTypes(List<Account>.class)
             .withParameterValues(accounts)
-            .returning(ids)
+            .returningObjectsWithIds(ids)
             .defineStub(true);
 
         StubExampleConsumer consumer = new StubExampleConsumer(exampleStub);
         Test.startTest();
-        List<Account> checkAccounts = (List<Account>) consumer.getAccounts(
-            accounts
-        );
+        List<Object> checkAccounts = consumer.getAccounts(accounts);
         Test.stopTest();
+        System.assertEquals(
+            checkAccounts.size(),
+            ids.size(),
+            'Expected to recieve a list of objects the same size as our list of input ids'
+        );
+    }
 
-        System.assertEquals(checkAccounts.size(), ids.size());
+    @isTest
+    static void testConvenienceParamTypeMethods(){
+        Stub exampleStub = new Stub.Builder(StubExample.class)
+            .mockingMethodCall('add') // returns methodSig.builder
+            .withParameterTypes(Integer.class, Integer.class)
+            .withParameterValues(2, 2)
+            .returning(5)
+            .defineStub();
     }
 }

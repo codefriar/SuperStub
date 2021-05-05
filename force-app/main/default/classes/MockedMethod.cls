@@ -49,6 +49,7 @@ public with sharing class MockedMethod {
             for (Integer i = 0; i < sObjects.size(); i++) {
                 sObjects[i].Id = sObjectIds[i];
             }
+            this.returnValue = sObjects;
         }
 
         // Throw a pre-specified exception, if one is set.
@@ -152,12 +153,18 @@ public with sharing class MockedMethod {
      * values - at runtime - of the method call.
      * @return                `Boolean`
      */
-    public Boolean doMethodSignaturesMatch(
+    public Boolean doMethodSignaturesAndParametersMatch(
         MethodSignature methodSignature,
         List<Object> runtimeParameters
     ) {
-        system.debug('@@@@ Signature match? ' + this.methodSignature.verifySignatureMatch(methodSignature));
-        system.debug('#### runtime params match? ' + doRuntimeParametersMatch(runtimeParameters) );
+        system.debug(
+            '@@@@ Signature match? ' +
+            this.methodSignature.verifySignatureMatch(methodSignature)
+        );
+        system.debug(
+            '#### runtime params match? ' +
+            doRuntimeParametersMatch(runtimeParameters)
+        );
         return this.methodSignature.verifySignatureMatch(methodSignature) &&
             doRuntimeParametersMatch(runtimeParameters);
     }
@@ -176,7 +183,12 @@ public with sharing class MockedMethod {
         Boolean matchesSoFar =
             this.methodParamsAtExecutionTime.size() == compareTo.size();
         system.debug('$$$$ param size match ' + matchesSoFar);
-        system.debug('%%%% ' + this.methodParamsAtExecutionTime + '\n' + compareTo );
+        system.debug(
+            '%%%% ' +
+            this.methodParamsAtExecutionTime +
+            '\n' +
+            compareTo
+        );
         for (Integer i = 0; i < compareTo.size(); i++) {
             if (!matchesSoFar) {
                 break;
@@ -222,20 +234,20 @@ public with sharing class MockedMethod {
          * @param args
          * @return      `MockedMethod`
          */
-        public MockedMethod.Builder withParameterValues(List<Object> args) {
+        private MockedMethod.Builder setParameterValues(List<Object> args) {
             this.runtimeParameters = args;
             return this;
         }
 
         public MockedMethod.Builder withParameterValues(Object arg1) {
-            return this.withParameterValues(new List<Object>{ arg1 });
+            return this.setParameterValues(new List<Object>{ arg1 });
         }
 
         public MockedMethod.Builder withParameterValues(
             Object arg1,
             Object arg2
         ) {
-            return this.withParameterValues(new List<Object>{ arg1, arg2 });
+            return this.setParameterValues(new List<Object>{ arg1, arg2 });
         }
 
         public MockedMethod.Builder withParameterValues(
@@ -243,7 +255,7 @@ public with sharing class MockedMethod {
             Object arg2,
             Object arg3
         ) {
-            return this.withParameterValues(
+            return this.setParameterValues(
                 new List<Object>{ arg1, arg2, arg3 }
             );
         }
@@ -255,7 +267,7 @@ public with sharing class MockedMethod {
             Object arg3,
             Object arg4
         ) {
-            return this.withParameterValues(
+            return this.setParameterValues(
                 new List<Object>{ arg1, arg2, arg3, arg4 }
             );
         }
@@ -266,7 +278,7 @@ public with sharing class MockedMethod {
          * @param ids   The list of Ids to assign.
          * @return      `MockedMethod.Builder`
          */
-        public Stub.Builder returning(List<Id> ids) {
+        public Stub.Builder returningObjectsWithIds(List<Id> ids) {
             this.returnSObjectIds = ids;
             return methodSignatureBuilder.finalizeSignature();
         }
@@ -329,6 +341,10 @@ public with sharing class MockedMethod {
         public MockedMethod createMockedMethod(MethodSignature signature) {
             MockedMethod methodCall = new MockedMethod(signature)
                 .withParameterValues(runtimeParameters);
+            system.debug(
+                '**** after method call created ' +
+                methodcall.methodParamsAtExecutionTime
+            );
             if (returnSObjectIds != null) {
                 methodCall.returning(returnSObjectIds);
             }
