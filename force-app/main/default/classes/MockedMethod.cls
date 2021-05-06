@@ -1,3 +1,4 @@
+@isTest
 /**
  * @description Represents a method call that is mocked as part of a Stub
  * object. This class is marked @isTest, as the object and it's methods are
@@ -157,14 +158,6 @@ public with sharing class MockedMethod {
         MethodSignature methodSignature,
         List<Object> runtimeParameters
     ) {
-        system.debug(
-            '@@@@ Signature match? ' +
-            this.methodSignature.verifySignatureMatch(methodSignature)
-        );
-        system.debug(
-            '#### runtime params match? ' +
-            doRuntimeParametersMatch(runtimeParameters)
-        );
         return this.methodSignature.verifySignatureMatch(methodSignature) &&
             doRuntimeParametersMatch(runtimeParameters);
     }
@@ -182,13 +175,6 @@ public with sharing class MockedMethod {
     private Boolean doRuntimeParametersMatch(List<Object> compareTo) {
         Boolean matchesSoFar =
             this.methodParamsAtExecutionTime.size() == compareTo.size();
-        system.debug('$$$$ param size match ' + matchesSoFar);
-        system.debug(
-            '%%%% ' +
-            this.methodParamsAtExecutionTime +
-            '\n' +
-            compareTo
-        );
         for (Integer i = 0; i < compareTo.size(); i++) {
             if (!matchesSoFar) {
                 break;
@@ -223,7 +209,7 @@ public with sharing class MockedMethod {
          */
         public Builder(
             MethodSignature.Builder methodSignatureBuilder,
-            List<Object> args
+            List<System.Type> args
         ) {
             this.runtimeParameters = args;
             this.methodSignatureBuilder = methodSignatureBuilder;
@@ -341,10 +327,6 @@ public with sharing class MockedMethod {
         public MockedMethod createMockedMethod(MethodSignature signature) {
             MockedMethod methodCall = new MockedMethod(signature)
                 .withParameterValues(runtimeParameters);
-            system.debug(
-                '**** after method call created ' +
-                methodcall.methodParamsAtExecutionTime
-            );
             if (returnSObjectIds != null) {
                 methodCall.returning(returnSObjectIds);
             }

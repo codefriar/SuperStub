@@ -1,3 +1,4 @@
+@isTest
 /**
  * @description Class models a callable apex method's 'signature' or combination
  * of Name, Parameter types and Parameter values. This is separate from a

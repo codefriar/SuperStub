@@ -17,14 +17,6 @@ public with sharing class StubExampleConsumer {
         this.stub.setGreeting(greeting);
     }
 
-    public void setGreeting(Integer someInt) {
-        this.stub.setGreeting(someInt);
-    }
-
-    public void setGreeting(Boolean someBoolean) {
-        this.stub.setGreeting(String.valueOf(someBoolean));
-    }
-
     public Integer add(Integer first, Integer second) {
         return this.stub.add(first, second);
     }
@@ -37,6 +29,7 @@ public with sharing class StubExampleConsumer {
         return this.stub.concatThreeStrings(first, second, third);
     }
 
+    @SuppressWarnings('PMD.ExcessiveParameterList')
     public Integer addFourNumbers(
         Integer one,
         Integer two,

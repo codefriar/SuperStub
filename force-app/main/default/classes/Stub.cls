@@ -1,3 +1,4 @@
+@isTest
 /**
  * @description This class helps you construct and manage StubProvider 
  * conforming objects for use in Unit Tests. It, along with it's companion
@@ -92,13 +93,6 @@ public with sharing class Stub implements System.StubProvider {
         // a match to the currently handled method call, it delegates the return
         // value to the MockedMethod.handleCall() method.
         for (MockedMethod mockedMethod : mockedMethods) {
-            system.debug(
-                '!!!! ' +
-                mockedMethod.doMethodSignaturesAndParametersMatch(
-                    methodSignature,
-                    args
-                )
-            );
             if (
                 mockedMethod.doMethodSignaturesAndParametersMatch(
                     methodSignature,
@@ -119,7 +113,7 @@ public with sharing class Stub implements System.StubProvider {
             ' but no mocked method matched it\'s signature and parameter' +
             ' values.' +
             ' Known mocks include:  ' +
-            this.mockedMethods[0] +
+            this.mockedMethods +
             ' However the parameter types of this call are: ' +
             paramTypes +
             ' and the parameter values of this call are: ' +
