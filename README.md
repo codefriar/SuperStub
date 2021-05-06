@@ -1,18 +1,17 @@
-# Salesforce DX Project: Next Steps
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
-
-## How Do You Plan to Deploy Your Changes?
-
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
-
-## Configure Your Salesforce DX Project
-
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
-
-## Read All About It
-
--   [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
--   [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
--   [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
--   [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+Jennifer Bennett  4:47 PM
+Looks awesome, I had a couple questions and then some naming thoughts...
+Stub
+line 102 - should be lower case mockedMethod
+line 109 - Nice exception when a method does not get called - do the comments need to be updated?
+line 227 / 248 / 303 - Why .withParameterTypes()?
+line 312 - nice idea being able to bypass storing the stub all together and just creating the instance.
+line 317 - for consistency should we label that variable mockedMethods vs methodCalls (carryover?)
+MethodSignature
+line 127...168 - Should the parameter names be parameter vs arg?
+line 18 - I find the executiontime vs runtime naming a little confusing... what do you think about calling this expectedArgs?
+line 175 - we could rename to runtimeArg
+line 153 - runtimeParameters comment says it represents the expected but this is the actual method call
+MockedMethod
+line 218 - with ParmaterValues all missing comments
+line 328 - for consistency should we label that variable mockedMethod vs methodCall (carryover?)
