@@ -121,58 +121,58 @@ public with sharing class MethodSignature {
         /**
          * @description This variant handles a single parameter, brokers to
          * omnibus method.
-         * @param arg
+         * @param parameter
          * @return      `MockedMethod.Builder`
          */
-        public MockedMethod.Builder withParameterTypes(System.Type arg) {
-            return withParameterTypes(new List<System.Type>{ arg });
+        public MockedMethod.Builder withParameterTypes(System.Type paramater) {
+            return withParameterTypes(new List<System.Type>{ paramater });
         }
 
         /**
          * @description Two parameter variant. Brokers to omnibus method.
-         * @param arg
-         * @param arg2
+         * @param parameter
+         * @param parameter2
          * @return      `MockedMethod.Builder`
          */
         public MockedMethod.Builder withParameterTypes(
-            System.Type arg,
-            System.Type arg2
+            System.Type parameter,
+            System.Type parameter2
         ) {
-            return withParameterTypes(new List<System.Type>{ arg, arg2 });
+            return withParameterTypes(new List<System.Type>{ parameter, parameter2 });
         }
 
         /**
          * @description Three parameter variant. Brokers to omnibus method.
-         * @param arg
-         * @param arg2
-         * @param arg3
+         * @param parameter
+         * @param parameter2
+         * @param parameter3
          * @return      `MockedMethod.Builder`
          */
         public MockedMethod.Builder withParameterTypes(
-            System.Type arg,
-            System.Type arg2,
-            System.Type arg3
+            System.Type parameter,
+            System.Type parameter2,
+            System.Type parameter3
         ) {
-            return withParameterTypes(new List<System.Type>{ arg, arg2, arg3 });
+            return withParameterTypes(new List<System.Type>{ parameter, parameter2, parameter3 });
         }
 
         /**
          * @description Four parameter variant. Brokers to omnibus method.
-         * @param arg
-         * @param arg2
-         * @param arg3
-         * @param arg4
+         * @param parameter
+         * @param parameter2
+         * @param parameter3
+         * @param parameter4
          * @return      `MockedMethod.Builder`
          */
         @SuppressWarnings('PMD.ExcessiveParameterList')
         public MockedMethod.Builder withParameterTypes(
-            System.Type arg,
-            System.Type arg2,
-            System.Type arg3,
-            System.Type arg4
+            System.Type parameter,
+            System.Type parameter2,
+            System.Type parameter3,
+            System.Type parameter4
         ) {
             return withParameterTypes(
-                new List<System.Type>{ arg, arg2, arg3, arg4 }
+                new List<System.Type>{ parameter, parameter2, parameter3, parameter4 }
             );
         }
 

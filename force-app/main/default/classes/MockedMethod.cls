@@ -15,7 +15,7 @@ public with sharing class MockedMethod {
      */
     @testVisible
     private MethodSignature methodSignature;
-    private List<Object> methodParamsAtExecutionTime;
+    private List<Object> expectedParameters;
     private Object returnValue;
     private Boolean throwException = false;
     private List<Id> sObjectIds;
@@ -46,7 +46,7 @@ public with sharing class MockedMethod {
         // if the developer has set a list of ID's, set them as the id's of the
         // returning sObjects
         if (sObjectIds != null) {
-            List<SObject> sObjects = (List<SObject>) methodParamsAtExecutionTime[0];
+            List<SObject> sObjects = (List<SObject>) expectedParameters[0];
             for (Integer i = 0; i < sObjects.size(); i++) {
                 sObjects[i].Id = sObjectIds[i];
             }
@@ -92,7 +92,7 @@ public with sharing class MockedMethod {
      * @return      `MockedMethod`
      */
     public MockedMethod withParameterValues(List<Object> args) {
-        this.methodParamsAtExecutionTime = args;
+        this.expectedParameters = args;
         return this;
     }
 
@@ -150,7 +150,7 @@ public with sharing class MockedMethod {
      * @description           determines if the current method call matches
      * on both a method signature level and against specified input parameters.
      * @param methodSignature A method signature to match against.
-     * @param runtimeParameters a List of objects representing the expected
+     * @param runtimeParameters a List of objects representing the actual
      * values - at runtime - of the method call.
      * @return                `Boolean`
      */
@@ -174,13 +174,13 @@ public with sharing class MockedMethod {
      */
     private Boolean doRuntimeParametersMatch(List<Object> compareTo) {
         Boolean matchesSoFar =
-            this.methodParamsAtExecutionTime.size() == compareTo.size();
+            this.expectedParameters.size() == compareTo.size();
         for (Integer i = 0; i < compareTo.size(); i++) {
             if (!matchesSoFar) {
                 break;
             }
             matchesSoFar &=
-                String.valueOf(this.methodParamsAtExecutionTime[i]) ==
+                String.valueOf(this.expectedParameters[i]) ==
                 String.valueOf(compareTo[i]);
         }
         return matchesSoFar;
@@ -216,45 +216,72 @@ public with sharing class MockedMethod {
         }
 
         /**
-         * @description
-         * @param args
+         * @description internal method used to set the parameter values of this
+         * MockedMethod instance.
+         * @param parameters list of System.Type
          * @return      `MockedMethod`
          */
-        private MockedMethod.Builder setParameterValues(List<Object> args) {
-            this.runtimeParameters = args;
+        private MockedMethod.Builder setParameterValues(List<Object> parameters) {
+            this.runtimeParameters = parameters;
             return this;
         }
 
-        public MockedMethod.Builder withParameterValues(Object arg1) {
-            return this.setParameterValues(new List<Object>{ arg1 });
+        /**
+         * @description convenience methodfor setting a single parameter type
+         * @param  parameter System.Type
+         * @return      this
+         */
+        public MockedMethod.Builder withParameterValues(Object parameter) {
+            return this.setParameterValues(new List<Object>{ parameter });
         }
 
+        /**
+         * @description convenience methodfor setting two params
+         * @param  parameter  System.Type
+         * @param  parameter2 System.Type
+         * @return            this
+         */
         public MockedMethod.Builder withParameterValues(
-            Object arg1,
-            Object arg2
+            Object parameter,
+            Object parameter2
         ) {
-            return this.setParameterValues(new List<Object>{ arg1, arg2 });
+            return this.setParameterValues(new List<Object>{ parameter, parameter2 });
         }
 
+        /**
+         * @description convenience methodfor setting three params
+         * @param  parameter  System.Type
+         * @param  parameter2 System.Type
+         * @param  parameter3 System.Type
+         * @return            return description
+         */
         public MockedMethod.Builder withParameterValues(
-            Object arg1,
-            Object arg2,
-            Object arg3
+            Object parameter,
+            Object parameter2,
+            Object parameter3
         ) {
             return this.setParameterValues(
-                new List<Object>{ arg1, arg2, arg3 }
+                new List<Object>{ parameter, parameter2, parameter3 }
             );
         }
 
+        /**
+         * @description convenience methodfor setting four parameters
+         * @param  parameter  parameter description
+         * @param  parameter2 parameter2 description
+         * @param  parameter3 parameter3 description
+         * @param  parameter4 parameter4 description
+         * @return            this
+         */
         @SuppressWarnings('PMD.ExcessiveParameterList')
         public MockedMethod.Builder withParameterValues(
-            Object arg1,
-            Object arg2,
-            Object arg3,
-            Object arg4
+            Object parameter,
+            Object parameter2,
+            Object parameter3,
+            Object parameter4
         ) {
             return this.setParameterValues(
-                new List<Object>{ arg1, arg2, arg3, arg4 }
+                new List<Object>{ parameter, parameter2, parameter3, parameter4 }
             );
         }
 
@@ -325,22 +352,22 @@ public with sharing class MockedMethod {
          * @return          `MockedMethod`
          */
         public MockedMethod createMockedMethod(MethodSignature signature) {
-            MockedMethod methodCall = new MockedMethod(signature)
+            MockedMethod mockedMethod = new MockedMethod(signature)
                 .withParameterValues(runtimeParameters);
             if (returnSObjectIds != null) {
-                methodCall.returning(returnSObjectIds);
+                mockedMethod.returning(returnSObjectIds);
             }
             if (throwException) {
                 if (this.customException != null) {
-                    methodCall.throwingException(customException);
+                    mockedMethod.throwingException(customException);
                 } else {
-                    methodCall.throwingException();
+                    mockedMethod.throwingException();
                 }
             } else {
-                methodCall.returning(returnValue);
+                mockedMethod.returning(returnValue);
             }
 
-            return methodCall;
+            return mockedMethod;
         }
     }
 }

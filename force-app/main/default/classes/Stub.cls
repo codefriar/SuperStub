@@ -99,13 +99,11 @@ public with sharing class Stub implements System.StubProvider {
                     args
                 )
             ) {
-                return MockedMethod.handleCall();
+                return mockedMethod.handleCall();
             }
         }
 
-        // Return null if the method currently being invoked by the test did not
-        // find a matching MockedMethod where the signature and parameter values
-        // match.
+        // If no matching MockedMethod is found, this exception is thrown.
         throw new Stub.StubException(
             methodName +
             ' was called on a Stubbed version of ' +
@@ -119,7 +117,6 @@ public with sharing class Stub implements System.StubProvider {
             ' and the parameter values of this call are: ' +
             args
         );
-        //return null;
     }
 
     /**
@@ -314,11 +311,11 @@ public with sharing class Stub implements System.StubProvider {
         }
 
         public Stub defineStub() {
-            List<MockedMethod> methodCalls = new List<MockedMethod>();
+            List<MockedMethod> mockedMethods = new List<MockedMethod>();
             for (MethodSignature.Builder sb : signatureBuilders) {
-                methodCalls.addAll(sb.buildMockedMethod());
+                mockedMethods.addAll(sb.buildMockedMethod());
             }
-            return new Stub(objectType, methodCalls);
+            return new Stub(objectType, mockedMethods);
         }
     }
 }
