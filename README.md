@@ -1,5 +1,4 @@
-
-Jennifer Bennett  4:47 PM
+Jennifer Bennett 4:47 PM
 Looks awesome, I had a couple questions and then some naming thoughts...
 Stub
 line 102 - should be lower case mockedMethod
