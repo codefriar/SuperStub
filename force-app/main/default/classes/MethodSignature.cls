@@ -138,7 +138,9 @@ public with sharing class MethodSignature {
             System.Type parameter,
             System.Type parameter2
         ) {
-            return withParameterTypes(new List<System.Type>{ parameter, parameter2 });
+            return withParameterTypes(
+                new List<System.Type>{ parameter, parameter2 }
+            );
         }
 
         /**
@@ -153,7 +155,9 @@ public with sharing class MethodSignature {
             System.Type parameter2,
             System.Type parameter3
         ) {
-            return withParameterTypes(new List<System.Type>{ parameter, parameter2, parameter3 });
+            return withParameterTypes(
+                new List<System.Type>{ parameter, parameter2, parameter3 }
+            );
         }
 
         /**
@@ -172,7 +176,12 @@ public with sharing class MethodSignature {
             System.Type parameter4
         ) {
             return withParameterTypes(
-                new List<System.Type>{ parameter, parameter2, parameter3, parameter4 }
+                new List<System.Type>{
+                    parameter,
+                    parameter2,
+                    parameter3,
+                    parameter4
+                }
             );
         }
 

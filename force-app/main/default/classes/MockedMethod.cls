@@ -221,7 +221,9 @@ public with sharing class MockedMethod {
          * @param parameters list of System.Type
          * @return      `MockedMethod`
          */
-        private MockedMethod.Builder setParameterValues(List<Object> parameters) {
+        private MockedMethod.Builder setParameterValues(
+            List<Object> parameters
+        ) {
             this.runtimeParameters = parameters;
             return this;
         }
@@ -245,7 +247,9 @@ public with sharing class MockedMethod {
             Object parameter,
             Object parameter2
         ) {
-            return this.setParameterValues(new List<Object>{ parameter, parameter2 });
+            return this.setParameterValues(
+                new List<Object>{ parameter, parameter2 }
+            );
         }
 
         /**
@@ -281,7 +285,12 @@ public with sharing class MockedMethod {
             Object parameter4
         ) {
             return this.setParameterValues(
-                new List<Object>{ parameter, parameter2, parameter3, parameter4 }
+                new List<Object>{
+                    parameter,
+                    parameter2,
+                    parameter3,
+                    parameter4
+                }
             );
         }
 
