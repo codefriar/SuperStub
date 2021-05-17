@@ -31,7 +31,7 @@ It's built as a series of three classes: `Stub`, `MockedMethod` and `MethodSigna
 - Package URL
 
 ```sh
-spm install
+spm install super-stub
 ```
 ## How do I use it?
 Super-Stub is designed to be used via the `builder` inner classes for the three main objects: `Stub`, `MockedMethod`, and `MethodSignature`. The builder classes contain methods that help you progressively define one or more mocked methods on a stub object. Let's look at a few examples:
@@ -128,6 +128,7 @@ There are other Stubbing and Mocking frameworks for Apex. Other's have outright 
 
 👩🏼‍💻 **Jennifer Bennett**
 * Twitter: [@JennyJBennett](https://twitter.com/JennyJBennett)
+
 ## Show your support
 
 Give a ⭐️ if this project helped you!
