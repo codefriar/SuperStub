@@ -21,7 +21,7 @@ Super-Stub is built as a series of three classes: `Stub`, `MockedMethod` and `Me
 
 - SPM Install
 - Git Clone
-- Package Link: Click [this link](_https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3h000004smn8AAA_) to install the PicklistUtils unlocked package in your org.
+- Package Link: Click [this link](_https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3h000004smn8AAA_) to install the Super-Stub unlocked package in your org.
 
 ```sh
 spm install super-stub
