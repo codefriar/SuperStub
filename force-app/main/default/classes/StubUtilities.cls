@@ -2,7 +2,7 @@
 public with sharing class StubUtilities {
     /**
      * @description a static incrementing counter tied to transaction
-     *
+     * Trying to determine why packaging doesn't pickup these changes
      */
     private static Integer counter {
         get {
