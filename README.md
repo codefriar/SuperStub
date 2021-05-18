@@ -1,12 +1,4 @@
-<h1 align="center">Welcome to Super-Stub 👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://twitter.com/Codefriar" target="_blank">
-    <img alt="Twitter: Codefriar" src="https://img.shields.io/twitter/follow/Codefriar.svg?style=social" />
-  </a>
-</p>
-
-> Super-Stub A delightful and elegant stubbing framework for Apex
+# Super-Stub A delightful and elegant stubbing framework for Apex
 
 ### 🏠 [Homepage](https://codefriar.github.io/SuperStub/)
 [![CI Workflow](https://github.com/codefriar/SuperStub/workflows/CI/badge.svg)](_https://github.com/codefriar/SuperStub/actions?query=workflow%3ACI_) [![Packaging Workflow](https://github.com/codefriar/SuperStub/workflows/Packaging/badge.svg)](_https://github.com/codefriar/SuperStub/actions?query=workflow%3APackaging_) [![codecov](https://codecov.io/gh/codefriar/SuperStub/branch/main/graph/badge.svg)](_https://codecov.io/gh/codefriar/SuperStub_)
@@ -123,7 +115,9 @@ There are other Stubbing and Mocking frameworks for Apex. Others have outright a
 🧑🏼‍💻 **Kevin Poorman**
 
 * Website: http://www.codefriar.com
-* Twitter: [@Codefriar](https://twitter.com/Codefriar)
+* Twitter: [@Codefriar](https://twitter.com/Codefriar)<a href="https://twitter.com/Codefriar" target="_blank">
+    <img alt="Twitter: Codefriar" src="https://img.shields.io/twitter/follow/Codefriar.svg?style=social" />
+  </a>
 * Github: [Codefriar](https://github.com/Codefriar)
 
 👩🏼‍💻 **Jennifer Bennett**
