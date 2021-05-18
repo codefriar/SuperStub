@@ -3,15 +3,17 @@
         {
             "path": "force-app",
             "default": true,
-            "package": "cfhub@codefriar.com",
+            "package": "super-stub",
             "versionName": "ver 0.1",
             "versionNumber": "0.1.0.NEXT"
         }
     ],
+    "name": "super-stub",
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
     "sourceApiVersion": "51.0",
     "packageAliases": {
-        "cfhub@codefriar.com": "0Ho5e0000004CNcCAM"
+        "super-stub": "0Ho5e0000004CNcCAM",
+        "super-stub@0.1.0-1": "04t5e000000toiWAAQ"
     }
 }

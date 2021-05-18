@@ -19,13 +19,13 @@ Super-Stub is built as a series of three classes: `Stub`, `MockedMethod` and `Me
 ### Installation Options:
 > Note: Because the code in this repository is all marked @IsTest, there are no unit tests in the pre-packaged versions of this libary.
 
-- SPM Install: 
-- Git Clone: This is an exercise left to the reader.
-- Package Link: Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3h000004smn8AAA) to install the Super-Stub unlocked package in your org.
-
+- SPM Install: This is the preferred method, [but it requires SPM. Find out more here.](https://spm-registry.herokuapp.com/)
 ```sh
-spm install super-stub
+sfdx spm:install -n 'super-stub'
 ```
+- Package Link: Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3h000004smn8AAA) to install the Super-Stub unlocked package in your org.
+- Git Clone: This is an exercise left to the reader.
+
 ## How do I use it?
 Super-Stub is designed to be used via the `Builder` inner classes for the three main objects: `Stub`, `MockedMethod`, and `MethodSignature`. The builder classes contain methods that help you progressively define one or more mocked methods on a stub object. Let's look at a few examples:
 

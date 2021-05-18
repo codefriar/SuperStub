@@ -2,6 +2,7 @@
     "name": "Super-Stub",
     "private": true,
     "version": "1.0.0",
+    "license": "CC0-1.0",
     "description": "An elegant Stubbing Framework for Apex",
     "scripts": {
         "prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
