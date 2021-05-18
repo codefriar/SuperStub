@@ -1,12 +1,13 @@
 <h1 align="center">Welcome to Super-Stub 👋</h1>
 <p>
+[![CI Workflow](https://github.com/codefriar/SuperStub/workflows/CI/badge.svg)](_https://github.com/codefriar/SuperStub/actions?query=workflow%3ACI_) [![Packaging Workflow](https://github.com/codefriar/SuperStub/workflows/Packaging/badge.svg)](_https://github.com/codefriar/SuperStub/actions?query=workflow%3APackaging_) [![codecov](https://codecov.io/gh/codefriar/SuperStub/branch/main/graph/badge.svg)](_https://codecov.io/gh/codefriar/SuperStub_)
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://twitter.com/Codefriar" target="_blank">
     <img alt="Twitter: Codefriar" src="https://img.shields.io/twitter/follow/Codefriar.svg?style=social" />
   </a>
 </p>
 
-> Super-Stub An Elegant Stubbing framework for Apex
+> Super-Stub A delightful and elegant stubbing framework for Apex
 
 ### 🏠 [Homepage](https://codefriar.github.io/SuperStub/)
 
@@ -23,13 +24,12 @@ Super-Stub is built as a series of three classes: `Stub`, `MockedMethod` and `Me
 🧑‍💻👩🏾‍💻 - Apex developers who write unit tests! (aka: All Apex developers) If you write unit tests, and want to make them faster, and less prone to intermittent failures then you'll want to utilize stubbing.
 
 ## Install
-
 ### Installation Options:
 > Note: Because the code in this repository is all marked @IsTest, there are no unit tests in the pre-packaged versions of this libary.
 
 - SPM Install
 - Git Clone
-- Package URL
+- Package Link: Click [this link](_https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3h000004smn8AAA_) to install the PicklistUtils unlocked package in your org.
 
 ```sh
 spm install super-stub
