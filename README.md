@@ -5,7 +5,7 @@
 [![Twitter](https://img.shields.io/twitter/follow/Codefriar.svg?style=social)](https://img.shields.io/twitter/follow/Codefriar.svg?style=social)
 ## ⁇ What is this? / What's it do?
 
-Apex provides a system interface called StubProvider - you can learn more about it here. (https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_interface_System_StubProvider.htm) There's even advanced instructions for building a mocking and stubbing framework with the StubProvider interface (https://developer.salesforce.com/docs/atlas.en-us.232.0.apexcode.meta/apexcode/apex_testing_stub_api.htm)
+Apex provides a system interface called StubProvider - [you can learn more about it here.](https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_interface_System_StubProvider.htm) There's even advanced instructions for [building a mocking and stubbing framework with the StubProvider interface](https://developer.salesforce.com/docs/atlas.en-us.232.0.apexcode.meta/apexcode/apex_testing_stub_api.htm)
 
 While these documents explain what the `StubProvider` does, the examples given lend themselves to a one-off Stub classes. Unless you want to litter your codebase with one-off stub classes this isn't brilliant; so I and others have set out to build a reusable Stubbing framework. There are other reusable frameworks out there, but this one is 'mine'. Part of what makes creating this kind of framework difficult is the API, or the interface developers use when utilizing this kind of library. Much thought has been put into API of Super-Stub. Specifically, I've tried to make sure the methods names are intuitive and easy to understand.
 
