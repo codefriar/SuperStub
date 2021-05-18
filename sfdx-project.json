@@ -2,10 +2,16 @@
     "packageDirectories": [
         {
             "path": "force-app",
-            "default": true
+            "default": true,
+            "package": "cfhub@codefriar.com",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT"
         }
     ],
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "51.0"
+    "sourceApiVersion": "51.0",
+    "packageAliases": {
+        "cfhub@codefriar.com": "0Ho5e0000004CNcCAM"
+    }
 }
