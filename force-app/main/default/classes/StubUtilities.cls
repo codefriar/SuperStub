@@ -1,5 +1,8 @@
 @isTest
 public with sharing class StubUtilities {
+    /**
+     * @description a static incrementing counter tied to transaction
+     */
     private static Integer counter {
         get {
             if (counter == null) {
