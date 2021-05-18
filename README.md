@@ -1,6 +1,5 @@
 <h1 align="center">Welcome to Super-Stub 👋</h1>
 <p>
-[![CI Workflow](https://github.com/codefriar/SuperStub/workflows/CI/badge.svg)](_https://github.com/codefriar/SuperStub/actions?query=workflow%3ACI_) [![Packaging Workflow](https://github.com/codefriar/SuperStub/workflows/Packaging/badge.svg)](_https://github.com/codefriar/SuperStub/actions?query=workflow%3APackaging_) [![codecov](https://codecov.io/gh/codefriar/SuperStub/branch/main/graph/badge.svg)](_https://codecov.io/gh/codefriar/SuperStub_)
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://twitter.com/Codefriar" target="_blank">
     <img alt="Twitter: Codefriar" src="https://img.shields.io/twitter/follow/Codefriar.svg?style=social" />
@@ -10,7 +9,7 @@
 > Super-Stub A delightful and elegant stubbing framework for Apex
 
 ### 🏠 [Homepage](https://codefriar.github.io/SuperStub/)
-
+[![CI Workflow](https://github.com/codefriar/SuperStub/workflows/CI/badge.svg)](_https://github.com/codefriar/SuperStub/actions?query=workflow%3ACI_) [![Packaging Workflow](https://github.com/codefriar/SuperStub/workflows/Packaging/badge.svg)](_https://github.com/codefriar/SuperStub/actions?query=workflow%3APackaging_) [![codecov](https://codecov.io/gh/codefriar/SuperStub/branch/main/graph/badge.svg)](_https://codecov.io/gh/codefriar/SuperStub_)
 ## ⁇ What is this? / What's it do?
 
 Apex provides a system interface called StubProvider - you can learn more about it here. (https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_interface_System_StubProvider.htm) There's even advanced instructions for building a mocking and stubbing framework with the StubProvider interface (https://developer.salesforce.com/docs/atlas.en-us.232.0.apexcode.meta/apexcode/apex_testing_stub_api.htm)
