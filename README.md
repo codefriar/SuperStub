@@ -1,6 +1,5 @@
 # Super-Stub - A delightful and elegant stubbing framework for Apex
 
-### 🏠 [Homepage](https://codefriar.github.io/SuperStub/)
 [![CI Workflow](https://github.com/codefriar/SuperStub/workflows/CI/badge.svg)](_https://github.com/codefriar/SuperStub/actions?query=workflow%3ACI_) [![Packaging Workflow](https://github.com/codefriar/SuperStub/workflows/Packaging/badge.svg)](_https://github.com/codefriar/SuperStub/actions?query=workflow%3APackaging_) [![codecov](https://codecov.io/gh/codefriar/SuperStub/branch/main/graph/badge.svg)](_https://codecov.io/gh/codefriar/SuperStub_)
 [![Twitter](https://img.shields.io/twitter/follow/Codefriar.svg?style=social)](https://img.shields.io/twitter/follow/Codefriar.svg?style=social)
 ## ⁇ What is this? / What's it do?
