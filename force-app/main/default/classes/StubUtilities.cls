@@ -2,6 +2,7 @@
 public with sharing class StubUtilities {
     /**
      * @description a static incrementing counter tied to transaction
+     * a new comment
      */
     private static Integer counter {
         get {
