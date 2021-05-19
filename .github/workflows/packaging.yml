@@ -45,7 +45,7 @@ jobs:
               id: createPackageVersion
               run: |
                   set +e
-                  json=$(sfdx force:package:version:create -p super-stub -x -w 20 -f config/project-scratch-def.json --json)
+                  json=$(sfdx force:package:version:create -c -p super-stub -x -w 20 -f config/project-scratch-def.json --json)
                   echo $json
                   status=$(echo $json | jq '.status')
                   if [ $status == "0" ]; then
@@ -84,7 +84,19 @@ jobs:
 
             # Commit and push changes
             - name: 'Commit and push changes'
-              run: git commit -a -m "Released new package version" && git push
+              run: |
+                  git config --global user.name 'Kevin Poorman'
+                  git config --global user.email 'codefriar@users.noreply.github.com'
+                  git commit -a -m "Released new package version"
+                  git push
+
+            # Install SPM plugin
+            - name: 'Install SPM plugin'
+              run: echo y | sfdx plugins:install spm-plugin
+
+            # Publish package to SPM registry
+            - name: 'Publish package to SPM registry'
+              run: sfdx spm:publish -v ${{ steps.createPackageVersion.outputs.packageVersionId }}
 
             # Housekeeping
             - name: 'Delete scratch org'
