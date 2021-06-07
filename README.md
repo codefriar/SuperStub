@@ -111,6 +111,7 @@ Super-Stub is limited by the same constraints the `System.StubProvider` interfac
 ## Other Mocking and Stubbing Frameworks
 There are other Stubbing and Mocking frameworks for Apex. Others have outright asked me why I reinvented the wheel. Honestly, because none of the others met my needs. Nevertheless, Here's a list of other Stub frameworkds for Apex: (Feel free to submit a PR to have your library listed.)
 - [Amoss](https://github.com/bobalicious/amoss)
+- [UniversalMock](https://github.com/surajp/universalmock)
 
 ## Authors
 
