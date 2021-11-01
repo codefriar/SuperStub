@@ -11,13 +11,13 @@
         "precommit": "lint-staged"
     },
     "devDependencies": {
-        "@cparra/apexdocs": "^1.12.2",
-        "@prettier/plugin-xml": "^0.13.1",
+        "@cparra/apexdocs": "^1.13.6",
+        "@prettier/plugin-xml": "^1.1.0",
         "eslint": "^7.32.0",
         "eslint-config-prettier": "^8.3.0",
-        "husky": "^7.0.1",
-        "lint-staged": "^11.0.0",
-        "prettier": "^2.3.2",
+        "husky": "^7.0.4",
+        "lint-staged": "^11.2.6",
+        "prettier": "^2.4.1",
         "prettier-plugin-apex": "^1.10.0",
         "semver": "^7.3.5"
     },
