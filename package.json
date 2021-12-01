@@ -11,7 +11,7 @@
         "precommit": "lint-staged"
     },
     "devDependencies": {
-        "@cparra/apexdocs": "^1.13.6",
+        "@cparra/apexdocs": "^1.13.7",
         "@prettier/plugin-xml": "^1.1.0",
         "eslint": "^8.1.0",
         "eslint-config-prettier": "^8.3.0",
