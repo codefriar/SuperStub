@@ -13,7 +13,7 @@
     "devDependencies": {
         "@cparra/apexdocs": "^1.13.6",
         "@prettier/plugin-xml": "^1.1.0",
-        "eslint": "^8.1.0",
+        "eslint": "^8.10.0",
         "eslint-config-prettier": "^8.3.0",
         "husky": "^7.0.4",
         "lint-staged": "^11.2.6",
