@@ -229,6 +229,15 @@ public with sharing class MockedMethod {
         }
 
         /**
+         * @description Omnibus version, convenience method for setting a list of N parameter values
+         * @param  parameter List<System.Type>
+         * @return      this
+         */
+        public MockedMethod.Builder withParameterValues(List<Object> parameter) {
+            return this.setParameterValues(parameter);
+        }
+
+        /**
          * @description convenience methodfor setting a single parameter type
          * @param  parameter System.Type
          * @return      this
